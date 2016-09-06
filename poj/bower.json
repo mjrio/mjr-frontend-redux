@@ -1,0 +1,21 @@
+{
+  "name": "poj",
+  "homepage": "https://github.com/mjrio/mjr-redux",
+  "authors": [
+    "Peter Cosemans <peter.cosemans@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "redux": "^3.6.0"
+  }
+}
