@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<section class="todoapp">
+    <app-header (todoAdded)="addTodo($event)"></app-header>
+    <todo-list [todos]="todos"></todo-list>
+    <app-footer></app-footer>
+</section>
+<footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+</footer>
