@@ -19,6 +19,16 @@ Implementations (optional: 5min)
 - @ngrx/store
 - https://github.com/xgrommx/awesome-redux
 
+# Presentatie
+Installatie:
+
+    cd slides/
+    npm i
+
+Start:
+
+    npm start
+
 
 # Issues
 
