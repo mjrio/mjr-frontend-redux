@@ -17,7 +17,8 @@ export class AppComponent {
     }
 
     mapStateToTarget(state: IAppState) {
-        return { todos: state.todos };
+        const filteredTodos =  state.todos.filter(state.filter.predicate);
+        return { todos: filteredTodos };
     }
 
     addTodo($event) {

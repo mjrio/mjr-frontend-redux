@@ -1,19 +1,20 @@
+/* global require */
 
 import { combineReducers } from 'redux';
-import { counterReducer } from './counter.reducer';
 import { ITodos, todoReducer } from './todo.reducer';
 import { filterReducer } from './filter.reducer';
 
-const createLogger = require('redux-logger');
+import * as createLogger from 'redux-logger';
 
 export interface IAppState {
     counter?: number;
     todos?: ITodos;
+    filter?: any;
 };
 
 export const rootReducer = combineReducers<IAppState>({
-  counter: counterReducer,
   todos: todoReducer,
+  filter: filterReducer,
 });
 
 export const middleware = [

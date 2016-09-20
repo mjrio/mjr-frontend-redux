@@ -50,11 +50,11 @@ export class TodoItemComponent implements OnInit {
     }
 
     toggleCompleted($event) {
-        this.actions.toggleAllTodos($event.target.checked);
+        this.actions.toggleTodo(this.todo.id, $event.target.checked);
     }
 
     remove() {
-        console.log('remove');
+        this.actions.removeTodo(this.todo.id);
     }
 
 }

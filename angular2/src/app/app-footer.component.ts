@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { NgRedux } from 'ng2-redux';
+import { IAppState } from './store';
+
+import { FilterActions } from './actions/filter.actions';
 
 @Component({
     selector: 'app-footer',
     template: `
         <footer class="footer">
-        <span class="todo-count"><strong>3</strong> items left</span>
+        <span class="todo-count"><strong>{{remainingTodosCount}}</strong> items left</span>
             <!-- Remove this if you don't implement routing -->
             <ul class="filters">
                 <li>
@@ -23,24 +27,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppFooterComponent implements OnInit {
 
-    constructor() { }
+    constructor(private ngRedux: NgRedux<IAppState>, private actions: FilterActions) {
+        ngRedux.connect(this.mapStateToTarget, null)(this);
+    }
+
+    mapStateToTarget(state: IAppState) {
+        // get remaining todos
+        const remainingTodos = state.todos.filter(todo => !todo.completed);
+        console.log('remainingTodos', remainingTodos.length);
+
+        // get current filter
+        const todoFilter = state.filter.key;
+        console.log('todoFilter', todoFilter);
+
+        return {
+            currentFilterKey: todoFilter,
+            remainingTodosCount: remainingTodos.length,
+        };
+    }
 
     ngOnInit() {
     }
 
     showAllTodos() {
+        this.actions.showAllTodos();
         console.log('showAllTodos');
     }
 
     showActiveTodos() {
-        console.log('showActiveTodos');
+        this.actions.showActiveTodos();
     }
 
     showCompletedTodos() {
-        console.log('showCompletedTodos');
+        this.actions.showCompletedTodos();
     }
 
     clearCompletedTodos() {
-        console.log('clearCompletedTodos');
+        this.actions.clearCompletedTodos();
     }
 }
