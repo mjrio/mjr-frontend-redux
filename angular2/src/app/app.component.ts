@@ -4,6 +4,7 @@ import { IAppState } from './store';
 
 import { TodoActions } from './actions/todo.actions';
 import { ITodos } from './store/todo.reducer';
+import { filterTodos } from './store/filter.reducer';
 
 @Component({
     selector: 'app-root',
@@ -11,13 +12,14 @@ import { ITodos } from './store/todo.reducer';
 })
 export class AppComponent {
     todos: ITodos = [];
+    todos$: any;
 
     constructor(private ngRedux: NgRedux<IAppState>, private actions: TodoActions) {
         ngRedux.connect(this.mapStateToTarget, null)(this);
     }
 
     mapStateToTarget(state: IAppState) {
-        const filteredTodos =  state.todos.filter(state.filter.predicate);
+        const filteredTodos =  filterTodos(state.todos, state.filter.key);
         return { todos: filteredTodos };
     }
 
@@ -25,10 +27,5 @@ export class AppComponent {
         this.actions.addTodo($event);
     }
 }
-
-// ngRedux select pattern
-// import { Observable } from 'rxjs';
-// import { NgRedux, select } from 'ng2-redux';
-// @select() todos$: Observable<ITodos>;
 
 

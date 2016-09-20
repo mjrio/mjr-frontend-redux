@@ -1,7 +1,10 @@
 # Angular2-Redux
 
-http://embed.plnkr.co/wj4lRtAwNMry8ToNzLrm/preview
-https://github.com/tastejs/todomvc/blob/master/examples/angular2/app/app.html
-http://todomvc.com/examples/angular2/
+### Store to local storage
 
-https://github.com/e-schultz/ng2-camp-example
+    const persistState = require('redux-localstorage');
+
+    export const enhancers = [
+        // add your redux enhancers here
+        persistState()
+    ];

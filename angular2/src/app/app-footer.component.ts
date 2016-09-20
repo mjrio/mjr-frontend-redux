@@ -32,16 +32,10 @@ export class AppFooterComponent implements OnInit {
     }
 
     mapStateToTarget(state: IAppState) {
-        // get remaining todos
         const remainingTodos = state.todos.filter(todo => !todo.completed);
-        console.log('remainingTodos', remainingTodos.length);
-
-        // get current filter
-        const todoFilter = state.filter.key;
-        console.log('todoFilter', todoFilter);
-
+        const currentFilterKey = state.filter.key;
         return {
-            currentFilterKey: todoFilter,
+            currentFilterKey,
             remainingTodosCount: remainingTodos.length,
         };
     }
