@@ -7,59 +7,22 @@
   <body>
     <div>
       <p>
-        Clicked: <span id="value">0</span> times
+        Clicked: <span id="value"></span> times
         <button id="increment">+</button>
         <button id="decrement">-</button>
       </p>
     </div>
     <script>
-
-      var store = Redux.createStore(counter)
-      var valueEl = document.getElementById('value')
-      function render() {
-        valueEl.innerHTML = store.getState().toString()
-      }
-      render()
-      store.subscribe(render)
-
-      document.getElementById('increment')
-        .addEventListener('click', function () {
-          store.dispatch(increment())
-        })
-      document.getElementById('decrement')
-        .addEventListener('click', function () {
-          store.dispatch(decrement())
-        })
-
-
-      /* ACTIONS */
-      function increment() {
-        return {
-          type: 'INCREMENT'
-        }
-      }
-
-      function decrement() {
-        return {
-          type: 'DECREMENT'
-        }
-      }
       
 
+      /* ACTIONS */
+
+
+
       /* REDUCER */
-      function counter(state, action) {
-        if (typeof state === 'undefined') {
-          return 0
-        }
-        switch (action.type) {
-          case 'INCREMENT':
-            return state + 2
-          case 'DECREMENT':
-            return state - 1
-          default:
-            return state
-        }
-      }
+
+
+
     </script>
   </body>
 </html>
