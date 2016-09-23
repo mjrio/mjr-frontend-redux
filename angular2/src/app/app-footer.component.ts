@@ -1,8 +1,14 @@
+declare var require: any;
+
 import { Component, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from './store';
+import { bindActionCreators } from 'redux';
 
-import { FilterActions } from './actions/filter.actions';
+// 'import * as FilterActions' won't provide the right type for bindActionCreators.
+const FilterActions = require('./actions/filter.actions');
+
+// import { FilterActions } from './actions/filter.actions';
 
 @Component({
     selector: 'app-footer',
@@ -12,23 +18,34 @@ import { FilterActions } from './actions/filter.actions';
             <!-- Remove this if you don't implement routing -->
             <ul class="filters">
                 <li>
-                    <a ng-class="{selected: currentFilterKey === 'SHOW_ALL_TODOS'}" href="#" (click)="showAllTodos()">All</a>
+                    <a ng-class="{selected: currentFilterKey === 'SHOW_ALL_TODOS'}"
+                       href="#" (click)="actions.showAllTodos()">
+                       All
+                    </a>
                 </li>
                 <li>
-                    <a ng-class="{selected: currentFilterKey === 'SHOW_ACTIVE_TODOS'}" href="#" (click)="showActiveTodos()">Active</a>
+                    <a ng-class="{selected: currentFilterKey === 'SHOW_ACTIVE_TODOS'}"
+                       href="#" (click)="actions.showActiveTodos()">
+                       Active
+                    </a>
                 </li>
                 <li>
-                    <a ng-class="{selected: currentFilterKey === 'SHOW_COMPLETED_TODOS'}" href="#" (click)="showCompletedTodos()">Completed</a>
+                    <a ng-class="{selected: currentFilterKey === 'SHOW_COMPLETED_TODOS'}"
+                       href="#" (click)="actions.showCompletedTodos()">
+                       Completed
+                    </a>
                 </li>
             </ul>
-            <button class="clear-completed" (click)="clearCompletedTodos()">Clear completed</button>
+            <button class="clear-completed" (click)="actions.clearCompletedTodos()">
+                Clear completed
+            </button>
         </footer>
   `,
 })
 export class AppFooterComponent implements OnInit {
 
-    constructor(private ngRedux: NgRedux<IAppState>, private actions: FilterActions) {
-        ngRedux.connect(this.mapStateToTarget, null)(this);
+    constructor(private ngRedux: NgRedux<IAppState>) {
+        ngRedux.connect(this.mapStateToTarget, this.mapDispatchToThis)(this);
     }
 
     mapStateToTarget(state: IAppState) {
@@ -40,23 +57,10 @@ export class AppFooterComponent implements OnInit {
         };
     }
 
+    mapDispatchToThis(dispatch) {
+        return { actions: bindActionCreators(FilterActions, dispatch) };
+    }
+
     ngOnInit() {
-    }
-
-    showAllTodos() {
-        this.actions.showAllTodos();
-        console.log('showAllTodos');
-    }
-
-    showActiveTodos() {
-        this.actions.showActiveTodos();
-    }
-
-    showCompletedTodos() {
-        this.actions.showCompletedTodos();
-    }
-
-    clearCompletedTodos() {
-        this.actions.clearCompletedTodos();
     }
 }

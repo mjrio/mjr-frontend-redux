@@ -15,10 +15,6 @@ import { TodoListComponent } from './todo-list.component';
 import { AppFooterComponent } from './app-footer.component';
 import { TodoItemComponent } from './todo-item.component';
 
-/* providers */
-import { TodoActions } from './actions/todo.actions';
-import { FilterActions } from './actions/filter.actions';
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -33,8 +29,6 @@ import { FilterActions } from './actions/filter.actions';
         HttpModule,
     ],
     providers: [
-      TodoActions,
-      FilterActions,
       NgRedux,
       DevToolsExtension ],
     bootstrap: [AppComponent]

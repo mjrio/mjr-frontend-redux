@@ -1,6 +1,14 @@
+declare var require: any;
+
 import { Component, Input, OnInit } from '@angular/core';
-import { TodoActions } from './actions/todo.actions';
+import { NgRedux } from 'ng2-redux';
+import { bindActionCreators } from 'redux';
+
 import { Todo } from './store/todo.reducer';
+import { IAppState } from './store';
+
+// 'import * as TodoActions' won't provide the right type for bindActionCreators.
+const TodoActions = require('./actions/todo.actions');
 
 @Component({
     selector: 'todo-item',
@@ -22,10 +30,18 @@ import { Todo } from './store/todo.reducer';
 })
 export class TodoItemComponent implements OnInit {
     @Input() todo: Todo;
+    actions: any;
 
-    constructor(private actions: TodoActions ) { }
+    constructor(private ngRedux: NgRedux<IAppState> ) {
+        ngRedux.connect(null /* no state binding */, this.mapDispatchToThis)(this);
+    }
 
     ngOnInit() {
+    }
+
+    // See app.component.ts for more info about mapDispatchToThis
+    mapDispatchToThis(dispatch) {
+        return { actions: bindActionCreators(TodoActions, dispatch) };
     }
 
     toggleEditable() {

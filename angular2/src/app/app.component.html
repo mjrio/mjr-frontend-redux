@@ -1,5 +1,5 @@
 <section class="todoapp">
-    <app-header (todoAdded)="addTodo($event)"></app-header>
+    <app-header (todoAdded)="actions.addTodo($event)"></app-header>
     <todo-list [todos]="todos"></todo-list>
     <app-footer></app-footer>
 </section>

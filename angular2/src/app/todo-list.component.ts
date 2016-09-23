@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TodoActions } from './actions/todo.actions';
+import { NgRedux } from 'ng2-redux';
+
+
 import { Todo } from './store/todo.reducer';
+import { toggleAllTodos } from './actions/todo.actions';
+import { IAppState } from './store';
 
 @Component({
     selector: 'todo-list',
@@ -18,14 +22,13 @@ export class TodoListComponent implements OnInit {
 
     @Input() todos: Todo[];
 
-    constructor(private actions: TodoActions) { }
+    constructor(private ngRedux: NgRedux<IAppState>) { }
 
     ngOnInit() {
     }
 
     toggleAll($event) {
-        console.log('toggleAll', $event.target.checked);
-        this.actions.toggleAllTodos($event.target.checked);
+        this.ngRedux.dispatch(toggleAllTodos($event.target.checked));
     }
 
 }

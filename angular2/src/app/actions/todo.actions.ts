@@ -1,76 +1,61 @@
-import { Injectable } from '@angular/core';
-import { NgRedux } from 'ng2-redux';
-import { IAppState } from '../store';
 
-@Injectable()
-export class TodoActions {
-    static ADD_TODO: string = 'ADD_TODO';
-    static TOGGLE_ALL_TODOS: string = 'TOGGLE_ALL_TODOS';
-    static REMOVE_COMPLETED_TODOS: string = 'REMOVE_COMPLETED_TODOS';
-    static TOGGLE_TODO: string = 'TOGGLE_TODO';
-    static REMOVE_TODO: string = 'REMOVE_TODO';
-    static UPDATE_TODO: string = 'UPDATE_TODO';
-    static TOGGLE_TODO_EDITABLE: string = 'TOGGLE_TODO_EDITABLE';
+/*
+    action TYPES
+*/
 
-    constructor(private ngRedux: NgRedux<IAppState>) {
+export const ADD_TODO = 'ADD_TODO';
+export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
+export const REMOVE_COMPLETED_TODOS = 'REMOVE_COMPLETED_TODOS';
+export const TOGGLE_TODO = 'TOGGLE_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const TOGGLE_TODO_EDITABLE = 'TOGGLE_TODO_EDITABLE';
+
+/*
+    action creators
+*/
+
+export const addTodo = (text: string) => ({
+    type: ADD_TODO,
+    payload: text,
+});
+
+export const updateTodo = (id: number, text: string) => ({
+    type: UPDATE_TODO,
+    payload: {
+        id,
+        text,
     }
+});
 
-    addTodo(text: string): void {
-        this.ngRedux.dispatch({
-            type: TodoActions.ADD_TODO,
-            payload: text,
-        });
+export const toggleEditable = (id: number, editing: boolean) => ({
+    type: TOGGLE_TODO_EDITABLE,
+    payload: {
+        id,
+        editing,
     }
+});
 
-    updateTodo(id: number, text: string): void {
-        this.ngRedux.dispatch({
-            type: TodoActions.UPDATE_TODO,
-            payload: {
-                id,
-                text,
-            }
-        });
-    }
+export const toggleAllTodos = (completed: boolean) => ({
+    type: TOGGLE_ALL_TODOS,
+    payload: completed,
+});
 
-    toggleEditable(id: number, editing: boolean): void {
-        this.ngRedux.dispatch({
-            type: TodoActions.TOGGLE_TODO_EDITABLE,
-            payload: {
-                id,
-                editing,
-            }
-        });
+export const toggleTodo = (id: number, completed: boolean) => ({
+    type: TOGGLE_TODO,
+    payload: {
+        id,
+        completed,
     }
+});
 
-    toggleAllTodos(completed: boolean) {
-        this.ngRedux.dispatch({
-            type: TodoActions.TOGGLE_ALL_TODOS,
-            payload: completed,
-        });
+export const removeTodo = (id: number) => ({
+    type: REMOVE_TODO,
+    payload: {
+        id
     }
+});
 
-    toggleTodo(id: number, completed: boolean) {
-        this.ngRedux.dispatch({
-            type: TodoActions.TOGGLE_TODO,
-            payload: {
-                id,
-                completed,
-            }
-        });
-    }
-
-    removeTodo(id: number) {
-        this.ngRedux.dispatch({
-            type: TodoActions.REMOVE_TODO,
-            payload: {
-                id
-            }
-        });
-    }
-
-    removeCompletedTodo() {
-        this.ngRedux.dispatch({
-            type: TodoActions.REMOVE_COMPLETED_TODOS
-        });
-    }
-}
+export const removeCompletedTodo = () => ({
+    type: REMOVE_COMPLETED_TODOS
+});

@@ -1,11 +1,15 @@
-export const SHOW_ALL_TODOS = 'SHOW_ALL_TODOS';
-export const SHOW_COMPLETED_TODOS = 'SHOW_COMPLETED_TODOS';
-export const SHOW_ACTIVE_TODOS = 'SHOW_ACTIVE_TODOS';
+import {
+    SHOW_ALL_TODOS,
+    SHOW_COMPLETED_TODOS,
+    SHOW_ACTIVE_TODOS,
+} from '../actions/filter.actions';
 
 const INITIAL_STATE = {
     key: SHOW_ALL_TODOS,
 };
 
+// This is a selector (filter on the state)
+// See re-select library for more advanced selector
 export const filterTodos = (todos, filter) => {
     switch (filter) {
         case SHOW_ALL_TODOS:
@@ -21,6 +25,11 @@ export const filterReducer = (state = INITIAL_STATE, action ) => {
     switch (action.type) {
         case SHOW_ALL_TODOS:
             return Object.assign({}, {key: action.type});
+            // typescript 2.1 or ES7:
+            // return {
+            //   ... state,
+            //   key: action.type
+            // }
         case SHOW_COMPLETED_TODOS:
             return Object.assign({}, { key: action.type});
         case SHOW_ACTIVE_TODOS:
