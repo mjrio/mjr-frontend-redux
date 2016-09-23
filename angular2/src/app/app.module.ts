@@ -36,10 +36,10 @@ import { TodoItemComponent } from './todo-item.component';
 export class AppModule {
     constructor(private ngRedux: NgRedux<IAppState>,  private devTool: DevToolsExtension) {
         this.ngRedux.configureStore(
-            rootReducer,
-            {},
-            middleware,
-            [ ...enhancers, devTool.isEnabled() ? devTool.enhancer() : f => f]
+            rootReducer,    // root reducer
+            {},             // initial state
+            middleware,     // middleware
+            [ ...enhancers, devTool.isEnabled() ? devTool.enhancer() : f => f] // enhancers
         );
     }
 }

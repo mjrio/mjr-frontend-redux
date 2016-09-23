@@ -12,20 +12,27 @@ export interface IAppState {
     filter?: any;
 };
 
+// this is the root state
 export const rootReducer = combineReducers<IAppState>({
   todos: todoReducer,
   filter: filterReducer,
 });
 
+/*
+    redux middleware
+*/
 export const middleware = [
+    createLogger({ level: 'info', collapsed: false })
+    //
     // add your redux middleware here
-    createLogger({
-        level: 'info',
-        collapsed: false,
-    })
+    //
 ];
 
+/*
+    redux enhancers
+*/
 export const enhancers = [
+    //
     // add your redux enhancers here
+    //
 ];
-

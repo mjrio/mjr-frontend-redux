@@ -1,7 +1,7 @@
 declare var require: any;
 
 import { todoReducer } from './todo.reducer';
-import { addTodo } from '../actions/todo.actions';
+import { addTodo, removeTodo } from '../actions/todo.actions';
 
 const deepFreeze = require('deep-freeze');
 
@@ -12,10 +12,10 @@ describe('reducer test', () => {
         const initialState = [];
 
         // action
-        const state = todoReducer([], {});
+        const stateAfter = todoReducer([], {});
 
         // assert
-        expect(state).toBe(initialState);
+        expect(stateAfter).toBe(initialState);
     });
 
     it('should add a first todo on the state', () => {
@@ -25,11 +25,28 @@ describe('reducer test', () => {
         deepFreeze(stateBefore);
 
         // action
-        const state = todoReducer(stateBefore, action);
+        const stateAfter = todoReducer(stateBefore, action);
 
         // assert
-        expect(state.length).toEqual(1);
-        expect(state[0].id).toEqual(1);
-        expect(state[0].text).toEqual(action.payload);
+        expect(stateAfter.length).toEqual(1);
+        expect(stateAfter[0].id).toEqual(1);
+        expect(stateAfter[0].text).toEqual(action.payload);
+    });
+
+    it('should remove a todo from the state', () => {
+        // arrange
+        const action = removeTodo(1);
+        const stateBefore = [
+            { id: 1, text: 'writing code', editing: false, completed: false },
+            { id: 2, text: 'drinking beer', editing: false, completed: true }
+        ];
+        deepFreeze(stateBefore);
+
+        // action
+        const stateAfter = todoReducer(stateBefore, action);
+
+        // assert
+        expect(stateAfter.length).toEqual(1);
+        expect(stateAfter[0].id).toEqual(1);
     });
 });

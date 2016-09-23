@@ -6,7 +6,7 @@ import { IAppState } from './store';
 import { bindActionCreators } from 'redux';
 
 import { ITodos } from './store/todo.reducer';
-import { filterTodos } from './store/filter.reducer';
+import { filterTodosSelector } from './store/filter.reducer';
 
 // 'import * as TodoActions' won't provide the right type for bindActionCreators.
 const TodoActions = require('./actions/todo.actions');
@@ -24,7 +24,7 @@ export class AppComponent {
     }
 
     mapStateToTarget(state: IAppState) {
-        const filteredTodos =  filterTodos(state.todos, state.filter.key);
+        const filteredTodos =  filterTodosSelector(state.todos, state.filter.key);
         return { todos: filteredTodos };
     }
 

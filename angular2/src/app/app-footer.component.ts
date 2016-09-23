@@ -8,8 +8,6 @@ import { bindActionCreators } from 'redux';
 // 'import * as FilterActions' won't provide the right type for bindActionCreators.
 const FilterActions = require('./actions/filter.actions');
 
-// import { FilterActions } from './actions/filter.actions';
-
 @Component({
     selector: 'app-footer',
     template: `

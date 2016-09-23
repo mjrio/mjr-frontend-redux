@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 
 // This is a selector (filter on the state)
 // See re-select library for more advanced selector
-export const filterTodos = (todos, filter) => {
+export const filterTodosSelector = (todos, filter) => {
     switch (filter) {
         case SHOW_ALL_TODOS:
             return todos;
