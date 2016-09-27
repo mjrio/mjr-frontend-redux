@@ -20,7 +20,8 @@ export class AppComponent {
     todos$: any;
 
     constructor(private ngRedux: NgRedux<IAppState>) {
-        ngRedux.connect(this.mapStateToTarget, this.mapDispatchToThis)(this);
+        ngRedux.connect(this.mapStateToTarget,
+                        this.mapDispatchToThis)(this);
     }
 
     mapStateToTarget(state: IAppState) {
